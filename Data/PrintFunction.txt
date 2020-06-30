@@ -1,0 +1,4 @@
+Public Function PrintFunction(ByVal Qnty as Integer)
+    Worksheets("Label").Activate
+    ActiveWindow.SelectedSheets.PrintOut Copies:=Qnty, Collate:=True, IgnorePrintAreas:=False
+End Function
