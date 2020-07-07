@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>778,1474</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>496,531</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PrintSequence_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="22">
@@ -56,19 +56,19 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="PrintSequence" sap:VirtualizedContainerService.HintSize="758,1374" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="PrintSequence" sap:VirtualizedContainerService.HintSize="476,471" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="716,1282" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" Visible="False" WorkbookPath="[in_CurrentFile]">
+    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,379" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[in_CurrentFile]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="682,1173" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,270" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="PrintExists" />
               <Variable x:TypeArguments="x:Int32" Default="1" Name="Counter" />
@@ -78,8 +78,8 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:InvokeVBA OutputValue="{x:Null}" CodeFilePath="Data\PrintFunction.txt" DisplayName="Invoke VBA" EntryMethodName="PrintFunction" EntryMethodParameters="[{in_PrintQuantity}]" sap:VirtualizedContainerService.HintSize="640,87" sap2010:WorkflowViewState.IdRef="InvokeVBA_1" />
-            <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="640,954" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+            <ui:InvokeVBA OutputValue="{x:Null}" CodeFilePath="Data\PrintFunction.txt" DisplayName="Invoke VBA" EntryMethodName="PrintFunction" EntryMethodParameters="[{in_PrintQuantity}]" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeVBA_1" />
+            <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="334,51" sap2010:WorkflowViewState.IdRef="CommentOut_1">
               <ui:CommentOut.Body>
                 <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="604,876" sap2010:WorkflowViewState.IdRef="Sequence_4">
                   <sap:WorkflowViewStateService.ViewState>
@@ -136,6 +136,12 @@
                   </ui:InterruptibleDoWhile>
                 </Sequence>
               </ui:CommentOut.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </ui:CommentOut>
           </Sequence>
         </ActivityAction>

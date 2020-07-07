@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ScrapeNetSuite" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ScrapeNetSuite" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="out_Date" Type="OutArgument(x:String)" />
     <x:Property Name="out_ElementDT" Type="OutArgument(sd:DataTable)" />
@@ -7,10 +7,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>538,1801</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>633,2536</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ScrapeNetSuite_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="44">
+    <scg:List x:TypeArguments="x:String" Capacity="23">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -37,7 +37,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="16">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="23">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -54,102 +54,174 @@
       <AssemblyReference>System.Xaml</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ScrapeNetSuite" sap:VirtualizedContainerService.HintSize="518,1701" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ScrapeNetSuite" sap:VirtualizedContainerService.HintSize="613,2476" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="DataScraped" />
+    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="Data Scraping" sap:VirtualizedContainerService.HintSize="476,436" sap2010:WorkflowViewState.IdRef="Sequence_3">
-      <sap:WorkflowViewStateService.ViewState>
-        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-        </scg:Dictionary>
-      </sap:WorkflowViewStateService.ViewState>
-      <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Netsuite Browser'" sap:VirtualizedContainerService.HintSize="434,344" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="f49a936c25ee1cbf01a521b9c7ad789f" Selector="&lt;html app='chrome.exe' title='Item Receipt - NetSuite*' /&gt;">
-        <ui:BrowserScope.Body>
-          <ActivityAction x:TypeArguments="x:Object">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="571,1252" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <Sequence sap:VirtualizedContainerService.HintSize="518,1020" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Boolean">[DataScraped]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Sequence DisplayName="Data Scraping" sap:VirtualizedContainerService.HintSize="476,436" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Netsuite Browser'" sap:VirtualizedContainerService.HintSize="434,344" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="f49a936c25ee1cbf01a521b9c7ad789f" Selector="&lt;html app='chrome.exe' title='Item Receipt - NetSuite*' /&gt;">
+              <ui:BrowserScope.Body>
+                <ActivityAction x:TypeArguments="x:Object">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,198" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[out_ElementDT]" DisplayName="Extract Structured Data 'Order Elements'" ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='1' columns_name_source='Longest' /&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="100" SimulateClick="True">
+                      <ui:ExtractData.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="22f15d5e-2d6d-4d1a-89a8-45ebb9e40f78" InformativeScreenshot="22a7652a9eec725f4a516589377a0948" Selector="&lt;webctrl id='item_splits' tag='TABLE' /&gt;" WaitForReady="COMPLETE">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                        </ui:Target>
+                      </ui:ExtractData.Target>
+                    </ui:ExtractData>
+                  </Sequence>
+                </ActivityAction>
+              </ui:BrowserScope.Body>
+            </ui:BrowserScope>
+          </Sequence>
+          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'DATE'" sap:VirtualizedContainerService.HintSize="476,106" sap2010:WorkflowViewState.IdRef="GetValue_3">
+            <ui:GetValue.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b73c5b59-2e3d-43ca-a8a3-cc8fb701d9e6" InformativeScreenshot="3ec9b4d9dd8be2900ff301fc73da1a5d" Selector="&lt;html app='chrome.exe' title='Item Receipt - NetSuite*' /&gt;&lt;webctrl parentid='trandate_fs_lbl' tag='A' /&gt;&lt;nav up='3' /&gt;&lt;webctrl tag='SPAN' idx='3' /&gt;">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+                <ui:Target.WaitForReady>
+                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                </ui:Target.WaitForReady>
+              </ui:Target>
+            </ui:GetValue.Target>
+            <ui:GetValue.Value>
+              <OutArgument x:TypeArguments="x:String">[out_Date]</OutArgument>
+            </ui:GetValue.Value>
+          </ui:GetValue>
+          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'PO Number'" sap:VirtualizedContainerService.HintSize="476,106" sap2010:WorkflowViewState.IdRef="GetValue_4">
+            <ui:GetValue.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cca40165-01b3-4b1c-96d8-9f5ad8dcf0de" InformativeScreenshot="58fbbf17556f5ec92951d332bd30f6f9" Selector="&lt;html app='chrome.exe' title='Item Receipt - NetSuite*' /&gt;&lt;webctrl id='qsTarget_*' tag='A' /&gt;">
+                <ui:Target.TimeoutMS>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:Target.TimeoutMS>
+                <ui:Target.WaitForReady>
+                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                </ui:Target.WaitForReady>
+              </ui:Target>
+            </ui:GetValue.Target>
+            <ui:GetValue.Value>
+              <OutArgument x:TypeArguments="x:String">[out_PONumber]</OutArgument>
+            </ui:GetValue.Value>
+          </ui:GetValue>
+          <Assign sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Boolean">[DataScraped]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="522,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
             <ActivityAction.Argument>
-              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,198" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence sap:VirtualizedContainerService.HintSize="376,284" sap2010:WorkflowViewState.IdRef="Sequence_4">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[out_ElementDT]" DisplayName="Extract Structured Data 'Order Elements'" ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='1' columns_name_source='Longest' /&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="100" SimulateClick="True">
-                <ui:ExtractData.Target>
-                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="22f15d5e-2d6d-4d1a-89a8-45ebb9e40f78" InformativeScreenshot="22a7652a9eec725f4a516589377a0948" Selector="&lt;webctrl id='item_splits' tag='TABLE' /&gt;" WaitForReady="COMPLETE">
-                    <ui:Target.TimeoutMS>
-                      <InArgument x:TypeArguments="x:Int32" />
-                    </ui:Target.TimeoutMS>
-                  </ui:Target>
-                </ui:ExtractData.Target>
-              </ui:ExtractData>
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[System.Environment.UserName+&quot; had an issue scraping Data&quot;]" />
+              <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;There was an issue scraping the data. It has been Logged&quot;]" />
             </Sequence>
           </ActivityAction>
-        </ui:BrowserScope.Body>
-      </ui:BrowserScope>
-    </Sequence>
-    <ui:CopyFile ContinueOnError="{x:Null}" Destination="Data\TEMP.csv" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="476,157" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="Data\BLANK.csv" />
-    <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="False" DataTable="[out_ElementDT]" Delimitator="Comma" DisplayName="Write CSV" FilePath="Data\TEMP.csv" sap:VirtualizedContainerService.HintSize="476,152" sap2010:WorkflowViewState.IdRef="WriteCsvFile_1" />
-    <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[out_ElementDT]" Delimitator="Comma" DisplayName="Read CSV" FilePath="Data\TEMP.csv" sap:VirtualizedContainerService.HintSize="476,152" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" />
-    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'DATE'" sap:VirtualizedContainerService.HintSize="476,106" sap2010:WorkflowViewState.IdRef="GetValue_1">
-      <ui:GetValue.Target>
-        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b73c5b59-2e3d-43ca-a8a3-cc8fb701d9e6" InformativeScreenshot="3ec9b4d9dd8be2900ff301fc73da1a5d" Selector="&lt;html app='chrome.exe' title='Item Receipt - NetSuite*' /&gt;&lt;webctrl parentid='trandate_fs_lbl' tag='A' /&gt;&lt;nav up='3' /&gt;&lt;webctrl tag='SPAN' idx='3' /&gt;">
-          <ui:Target.TimeoutMS>
-            <InArgument x:TypeArguments="x:Int32" />
-          </ui:Target.TimeoutMS>
-          <ui:Target.WaitForReady>
-            <InArgument x:TypeArguments="ui:WaitForReady" />
-          </ui:Target.WaitForReady>
-        </ui:Target>
-      </ui:GetValue.Target>
-      <ui:GetValue.Value>
-        <OutArgument x:TypeArguments="x:String">[out_Date]</OutArgument>
-      </ui:GetValue.Value>
-    </ui:GetValue>
-    <Assign sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_2">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[out_Date]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[out_Date.Trim]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'PO Number'" sap:VirtualizedContainerService.HintSize="476,106" sap2010:WorkflowViewState.IdRef="GetValue_2">
-      <ui:GetValue.Target>
-        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cca40165-01b3-4b1c-96d8-9f5ad8dcf0de" InformativeScreenshot="58fbbf17556f5ec92951d332bd30f6f9" Selector="&lt;html app='chrome.exe' title='Item Receipt - NetSuite*' /&gt;&lt;webctrl id='qsTarget_*' tag='A' /&gt;">
-          <ui:Target.TimeoutMS>
-            <InArgument x:TypeArguments="x:Int32" />
-          </ui:Target.TimeoutMS>
-          <ui:Target.WaitForReady>
-            <InArgument x:TypeArguments="ui:WaitForReady" />
-          </ui:Target.WaitForReady>
-        </ui:Target>
-      </ui:GetValue.Target>
-      <ui:GetValue.Value>
-        <OutArgument x:TypeArguments="x:String">[out_PONumber]</OutArgument>
-      </ui:GetValue.Value>
-    </ui:GetValue>
-    <Assign sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_3">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[out_PONumber]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[out_PONumber.Replace("Purchase Order #","")]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <Assign sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_1">
-      <Assign.To>
-        <OutArgument x:TypeArguments="sd:DataTable">[out_ElementDT]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="sd:DataTable">[out_ElementDT]</InArgument>
-      </Assign.Value>
-    </Assign>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <If Condition="[DataScraped = True]" sap:VirtualizedContainerService.HintSize="571,1092" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="426,942" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:CopyFile ContinueOnError="{x:Null}" Destination="Data\TEMP.csv" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="384,160" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="Data\BLANK.csv" />
+          <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="False" DataTable="[out_ElementDT]" Delimitator="Comma" DisplayName="Write CSV" FilePath="Data\TEMP.csv" sap:VirtualizedContainerService.HintSize="384,155" sap2010:WorkflowViewState.IdRef="WriteCsvFile_1" />
+          <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[out_ElementDT]" Delimitator="Comma" DisplayName="Read CSV" FilePath="Data\TEMP.csv" sap:VirtualizedContainerService.HintSize="384,155" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" />
+          <Assign sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[out_Date]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[out_Date.Trim]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[out_PONumber]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[out_PONumber.Replace("Purchase Order #","")]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+            <Assign.To>
+              <OutArgument x:TypeArguments="sd:DataTable">[out_ElementDT]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="sd:DataTable">[out_ElementDT]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </If.Then>
+    </If>
   </Sequence>
 </Activity>

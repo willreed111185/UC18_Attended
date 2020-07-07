@@ -1,11 +1,11 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>538,1017</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>538,1244</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="42">
@@ -61,7 +61,7 @@
       <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="518,957" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="556,1943" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="WorkingFolder" />
       <Variable x:TypeArguments="ui:Browser" Name="PlugShareBrowser" />
@@ -77,44 +77,88 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ScrapeNetSuite workflow" sap:VirtualizedContainerService.HintSize="476,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="NetSuite\ScrapeNetSuite.xaml">
-      <ui:InvokeWorkflowFile.Arguments>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_Date">[InvoiceDate]</OutArgument>
-        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_ElementDT">[ElementDT]</OutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_PONumber">[PONumber]</OutArgument>
-      </ui:InvokeWorkflowFile.Arguments>
-    </ui:InvokeWorkflowFile>
-    <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[ElementDT]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="476,651" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
-      <ui:ForEachRow.Body>
-        <ActivityAction x:TypeArguments="sd:DataRow">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
-          </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="426,503" sap2010:WorkflowViewState.IdRef="Sequence_2">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <ui:CopyFile ContinueOnError="{x:Null}" Destination="[in_Config(&quot;CurrentFile&quot;).ToString]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="384,157" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[in_Config(&quot;Template&quot;).ToString]" />
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Fill_Template workflow" sap:VirtualizedContainerService.HintSize="384,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Excel\Fill_Template.xaml">
-              <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="x:String" x:Key="in_CurrentFile">[in_Config("CurrentFile").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_Date">[InvoiceDate]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_PartNumber">[row("ITEM").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_Quantity">[row("QUANTITY").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_PONumber">[PONumber]</InArgument>
-              </ui:InvokeWorkflowFile.Arguments>
-            </ui:InvokeWorkflowFile>
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PrintSequence workflow" sap:VirtualizedContainerService.HintSize="384,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Excel\PrintSequence.xaml">
-              <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="x:Int32" x:Key="in_PrintQuantity">[cint(row("LABEL COUNT").ToString)]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_CurrentFile">[in_Config("CurrentFile").ToString]</InArgument>
-              </ui:InvokeWorkflowFile.Arguments>
-            </ui:InvokeWorkflowFile>
-          </Sequence>
-        </ActivityAction>
-      </ui:ForEachRow.Body>
-    </ui:ForEachRow>
+    <TryCatch DisplayName="Try Catch Scrape Netsuite" sap:VirtualizedContainerService.HintSize="514,322" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ScrapeNetSuite workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="NetSuite\ScrapeNetSuite.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_Date">[InvoiceDate]</OutArgument>
+            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_ElementDT">[ElementDT]</OutArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_PONumber">[PONumber]</OutArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,160" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[&quot;UC18 Failure: &quot;+exception.ToString]" />
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <TryCatch DisplayName="Try Catch Loop Table" sap:VirtualizedContainerService.HintSize="514,1402" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+      <TryCatch.Try>
+        <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[ElementDT]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="476,1175" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+          <ui:ForEachRow.Body>
+            <ActivityAction x:TypeArguments="sd:DataRow">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="426,1027" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:CopyFile ContinueOnError="{x:Null}" Destination="[in_Config(&quot;CurrentFile&quot;).ToString]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="384,157" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[in_Config(&quot;Template&quot;).ToString]" />
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="384,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Fill Template&quot;]" />
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="384,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Item:&quot;+row(&quot;ITEM&quot;).ToString +&quot;  Quantity:&quot;+row(&quot;QUANTITY&quot;).ToString+&quot; PO:&quot;+PONumber+&quot;  Date:&quot;+InvoiceDate]" />
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Fill_Template workflow" sap:VirtualizedContainerService.HintSize="384,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Excel\Fill_Template.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_CurrentFile">[in_Config("CurrentFile").ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Date">[InvoiceDate]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PartNumber">[row("ITEM").ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Quantity">[row("QUANTITY").ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PONumber">[PONumber]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="384,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Print Order&quot;]" />
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="384,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Label Count: &quot;+row(&quot;LABEL COUNT&quot;).ToString]" />
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PrintSequence workflow" sap:VirtualizedContainerService.HintSize="384,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Excel\PrintSequence.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:Int32" x:Key="in_PrintQuantity">[cint(row("LABEL COUNT").ToString)]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_CurrentFile">[in_Config("CurrentFile").ToString]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+              </Sequence>
+            </ActivityAction>
+          </ui:ForEachRow.Body>
+        </ui:ForEachRow>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="480,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Error" Message="[&quot;UC18 Failure: &quot;+exception.ToString]" />
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
   </Sequence>
 </Activity>
