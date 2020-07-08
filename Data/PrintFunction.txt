@@ -1,4 +1,4 @@
-Public Function PrintFunction(ByVal Qnty as Integer)
+Public Function PrintFunction(ByVal Qnty as String)
     Worksheets("Label").Activate
-    ActiveWindow.SelectedSheets.PrintOut Copies:=Qnty, Collate:=True, IgnorePrintAreas:=False
+    ActiveWindow.SelectedSheets.PrintOut Collate:=True, IgnorePrintAreas:=False
 End Function
